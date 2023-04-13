@@ -1,7 +1,9 @@
 package id.co.bca.spring.funtravelpayment.FunTravelPayment.controller;
 
 import id.co.bca.spring.funtravelpayment.FunTravelPayment.model.Billing;
+import id.co.bca.spring.funtravelpayment.FunTravelPayment.model.PaymentMethod;
 import id.co.bca.spring.funtravelpayment.FunTravelPayment.repository.BillingSDJRepository;
+import id.co.bca.spring.funtravelpayment.FunTravelPayment.repository.PaymentMethodRepository;
 import id.co.bca.spring.funtravelpayment.FunTravelPayment.service.BillingServiceSDJ;
 import org.aspectj.lang.annotation.DeclareError;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class RestPaymentController {
 
     @Autowired
     private BillingSDJRepository billingSDJRepository;
+
+    @Autowired
+    private PaymentMethodRepository paymentMethodRepository;
 
     @GetMapping("/billings")
     @ResponseStatus(HttpStatus.OK)
@@ -48,5 +53,11 @@ public class RestPaymentController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteBilling(@PathVariable("id") int id) {
         billingSDJRepository.deleteById(id);
+    }
+
+    @GetMapping("/payment-methods")
+    @ResponseStatus(HttpStatus.OK)
+    public List<PaymentMethod> findAllPaymentMethod() {
+        return paymentMethodRepository.findAll();
     }
 }
